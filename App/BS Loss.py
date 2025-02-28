@@ -26,11 +26,11 @@ def angleDependentBeamSplitter(inputState = np.array([[0],[1]]), angleTheta = 0)
 
 def fidelity(inputState = np.array([[0],[1]]), angleTheta = 0):
     outputState = angleDependentBeamSplitter(inputState, angleTheta)
-    target = simpleBeamSplitter(inputState)
+    target = simpleBeamSplitter()
     return np.matrix(abs(np.dot(transpose(target), outputState)) ** 2).item(0)
 
 
-'''set = []
+set = []
 for x in range(360):
     set.append(fidelity(angleTheta= math.radians(x)))
 
@@ -38,4 +38,4 @@ plt.plot(set)
 plt.xlabel('Angle Degrees')
 plt.ylabel('Normalized fidelity of beam splitter output 1')
 plt.title('Fidelity of beam splitter outputs ')
-plt.show()'''
+plt.show()

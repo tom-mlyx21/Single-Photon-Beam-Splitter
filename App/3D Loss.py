@@ -13,6 +13,8 @@ from matplotlib.animation import FFMpegWriter, PillowWriter
 plt.style.use('cyberpunk')
 plt.figure(figsize = (10,10))
 
+
+# All functions duplicated due to different requirements pending an imaginary state
 def simpleSurfaceTarget():
     U = np.array([[math.cos(0), math.sin(0) * 1j], [math.sin(0) * 1j, math.cos(0)]])
     inputState = np.array([[math.cos(0)], [e**(0+1j)*math.sin(0)]])
@@ -127,25 +129,27 @@ def animatedFidelity():
     # Fixing random state for reproducibility
     np.random.seed(19680801)
 
-    metadata = dict(title='Movie', artist='codinglikemad')
+    metadata = dict(title='Single Photon Beam Splitter Fidelity in 4 Dimensions', artist='TomM')
     #writer = PillowWriter(fps=15, metadata=metadata)
     writer = FFMpegWriter(fps=15, metadata=metadata)
 
     fig, ax = plt.subplots(subplot_kw=dict(projection='3d'))
+    ax.set_title('Single Photon Beam Splitter Fidelity in 4 Dimensions')
+    ax.set_xlabel('Gamma')
+    ax.set_ylabel('Theta')
+    ax.set_zlabel('Fidelity')
+    # No label for phi, as this evolves through time
 
-    #fig = plt.figure()
-    #l, = plt.plot([], [], 'k-')
-    #metadata = dict(title='Movie', artist='Me', license='UoY')
-    #writer = PillowWriter(fps=30, metadata=metadata)
-    #xlist = []
-    #ylist = []
-    #zlist = []
     with writer.saving(fig, "exp3d.mp4", 100):
         for xval in np.linspace(0, 360, 360):
             print(xval)
             xlist, ylist, zlist = complexHelper(xval)
             ax.set_zlim(0, 1)
             ax.plot_surface(xlist, ylist, zlist, cmap=cm.viridis)
+            ax.set_title('Single Photon Beam Splitter Fidelity in 4 Dimensions')
+            ax.set_xlabel('Angle of Input (Degrees)')
+            ax.set_ylabel('Theta angle (Degrees)')
+            ax.set_zlabel('Fidelity')
             writer.grab_frame()
             plt.cla()
 
